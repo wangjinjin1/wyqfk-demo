@@ -12,7 +12,9 @@ import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,8 +61,8 @@ public class TUserController {
     }
 
 
-    @GetMapping("/addUser")
-    public String add(TUser tUser){
+    @PostMapping("/addUser")
+    public String add(@RequestBody TUser tUser){
         boolean flag=tUserService.save(tUser);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
@@ -100,8 +102,8 @@ public class TUserController {
         return obj;
     }
 
-    @GetMapping("/updUser")
-    public String upd(TUser tUser){
+    @PostMapping("/updUser")
+    public String upd(@RequestBody TUser tUser){
         boolean flag=tUserService.saveOrUpdate(tUser);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
@@ -153,5 +155,25 @@ public class TUserController {
 
         return obj;
     }
+
+    @GetMapping("/login")
+    public String login(String username,String password){
+        QueryWrapper<TUser> wrapper=new QueryWrapper<>();
+        wrapper.eq("username",username).eq("password",password);
+        List<TUser> user=tUserService.list(wrapper);
+        if(user!=null){
+            ObjectMapper objectMapper=new ObjectMapper();
+            String obj=null;
+            try {
+                obj=objectMapper.writeValueAsString(user.get(0));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return obj;
+        }else{
+            return null;
+        }
+    }
+
 }
 

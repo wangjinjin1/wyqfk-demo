@@ -63,7 +63,7 @@ public class TRoleController {
 
     @PostMapping("/addRole")
     @ApiOperation("添加角色的接口")
-    public String add(TRole tRole){
+    public String add(@RequestBody TRole tRole){
         boolean flag=tRoleService.save(tRole);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
@@ -91,7 +91,7 @@ public class TRoleController {
 
     @PostMapping("/updRole")
     @ApiOperation("修改角色的接口")
-    public String upd(TRole tRole){
+    public String upd(@RequestBody TRole tRole){
         boolean flag=tRoleService.saveOrUpdate(tRole);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
