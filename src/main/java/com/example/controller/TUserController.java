@@ -33,7 +33,7 @@ public class TUserController {
     private TUserService tUserService;
 
     @GetMapping("/getAll")
-    public String getAll(@RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+    public Object getAll(@RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
                          @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
                          @RequestParam(value = "content",required = false) String content){
         Page<TUser> page=new Page<>(pageNo,pageSize);
@@ -49,15 +49,15 @@ public class TUserController {
         map.put("pageNo",page.getCurrent());
         map.put("pageSize",page.getSize());
         map.put("count",page.getTotal());
-        ObjectMapper objectMapper=new ObjectMapper();
-        String obj=null;
-        try {
-            obj=objectMapper.writeValueAsString(map);
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return obj;
+//        ObjectMapper objectMapper=new ObjectMapper();
+//        String obj=null;
+//        try {
+//            obj=objectMapper.writeValueAsString(map);
+//
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+        return map;
     }
 
 
@@ -161,9 +161,9 @@ public class TUserController {
         QueryWrapper<TUser> wrapper=new QueryWrapper<>();
         wrapper.eq("username",username).eq("password",password);
         List<TUser> user=tUserService.list(wrapper);
-        if(user!=null){
-            ObjectMapper objectMapper=new ObjectMapper();
-            String obj=null;
+        ObjectMapper objectMapper=new ObjectMapper();
+        String obj=null;
+        if(user.size()>0){
             try {
                 obj=objectMapper.writeValueAsString(user.get(0));
             } catch (JsonProcessingException e) {

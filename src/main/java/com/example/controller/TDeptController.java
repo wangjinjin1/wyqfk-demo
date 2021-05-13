@@ -62,7 +62,7 @@ public class TDeptController {
     }
 
     @PostMapping("/addDept")
-    public String add(TDept tDept){
+    public String add(@RequestBody TDept tDept){
         boolean flag=tDeptService.save(tDept);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
@@ -89,7 +89,7 @@ public class TDeptController {
     }
 
     @PostMapping("/updDept")
-    public String upd(TDept tDept){
+    public String upd(@RequestBody TDept tDept){
         boolean flag=tDeptService.saveOrUpdate(tDept);
         Map<String,Object> map=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();

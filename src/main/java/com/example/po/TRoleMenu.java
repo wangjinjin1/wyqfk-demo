@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -19,11 +21,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @ApiModel
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class TRoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "roleid", type = IdType.AUTO)
+    //@TableId(value = "roleid", type = IdType.AUTO)
     private Integer roleid;
 
     private Integer menuid;
